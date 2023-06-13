@@ -74,6 +74,26 @@ class SinglyLinkedList {
     }
     return current;
   }
+  // set(index, value) {
+  //   if (index < 0 || index > this.length) return false;
+  //   let counter = 0;
+  //   let current = this.head;
+  //   while (counter !== index) {
+  //     current = current.next;
+  //     counter++;
+  //   }
+  //   current.val = value;
+  //   return true;
+  // }
+  //refactored set method below
+  set(index, val) {
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+    return false;
+  }
 }
 
 let list = new SinglyLinkedList();
