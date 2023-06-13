@@ -13,6 +13,7 @@ class SinglyLinkedList {
     this.tail = null;
     this.length = 0;
   }
+  // add a node at the end
   push(val) {
     let newNode = new Node(val);
     if (!this.head) {
@@ -25,6 +26,7 @@ class SinglyLinkedList {
     this.length++;
     return this;
   }
+  // remove a node from the end
   pop() {
     if (!this.head) return undefined;
     let current = this.head;
@@ -42,6 +44,7 @@ class SinglyLinkedList {
     }
     return current;
   }
+  // remove a node at the start
   shift() {
     if (!this.head) return undefined;
     let current = this.head;
@@ -52,6 +55,7 @@ class SinglyLinkedList {
     }
     return current;
   }
+  // add a node at the start
   unshift(val) {
     let newNode = new Node(val);
     if (!this.head) {
@@ -64,8 +68,9 @@ class SinglyLinkedList {
     this.length++;
     return this;
   }
+  //return the node at specific index
   get(index) {
-    if (index < 0 || index > this.length) return null;
+    if (index < 0 || index >= this.length) return null;
     let counter = 0;
     let current = this.head;
     while (counter !== index) {
@@ -86,6 +91,8 @@ class SinglyLinkedList {
   //   return true;
   // }
   //refactored set method below
+
+  // update the node at a specific index
   set(index, val) {
     let foundNode = this.get(index);
     if (foundNode) {
@@ -93,6 +100,42 @@ class SinglyLinkedList {
       return true;
     }
     return false;
+  }
+
+  // insert a node at speifc index and update the list
+  insert(index, val) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) return !!this.push(val);
+    if (index === 0) return !!this.unshift(val);
+
+    let newNode = new Node(val);
+    let prevNode = this.get(index - 1);
+    let nextNode = this.get(index);
+    prevNode.next = newNode;
+    newNode.next = nextNode;
+    this.length++;
+
+    return true;
+  }
+  remove(index) {
+    if (!index) return false;
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === this.length - 1) return this.pop();
+    if (index === 0) return this.shift();
+    let previousNode = this.get(index - 1);
+    let removedNode = previousNode.next;
+    previousNode.next = removedNode.next;
+    this.length--;
+    return removedNode;
+  }
+  print() {
+    let current = this.head;
+    let arr = [];
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
   }
 }
 
@@ -102,4 +145,3 @@ list.push("how");
 list.push("are");
 list.push("you?");
 console.log(list);
-list.traverse();
