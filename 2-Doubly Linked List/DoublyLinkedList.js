@@ -34,9 +34,25 @@ class DoublyLinkedList {
     } else {
       this.tail = current.prev;
       this.tail.next = null;
+      current.prev = null;
     }
     this.length--;
     return current;
+  }
+
+  shift() {
+    if (!this.head) return undefined;
+    let oldHead = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = oldHead.next;
+      this.head.prev = null;
+      oldHead.next = null;
+    }
+    this.length--;
+    return oldHead;
   }
 
   print() {
@@ -58,3 +74,12 @@ class DoublyLinkedList {
     return arr;
   }
 }
+
+let list = new DoublyLinkedList();
+list.push("first");
+list.push(10);
+list.push(11);
+list.push(12);
+list.push(13);
+list.push("last");
+list.print();
